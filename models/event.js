@@ -1,4 +1,4 @@
-// models/Event.js
+// models/event.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const User = require('../models/users');
@@ -13,7 +13,7 @@ const Event = sequelize.define('Event', {
         allowNull: false,
     },
     time: {
-        type: DataTypes.TEXT,
+        type: DataTypes.TIME,
         allowNull: false,
     },
     description: {
@@ -50,14 +50,8 @@ const Event = sequelize.define('Event', {
             key: 'id',
         },
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-    },
+}, {
+    timestamps: true,
 });
 
 module.exports = Event;

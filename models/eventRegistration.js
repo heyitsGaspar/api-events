@@ -1,8 +1,8 @@
-// models/EventRegistration.js
+// models/eventRegistration.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const Event = require('../models/event');
 const User = require('../models/users');
+const Event = require('../models/event');
 
 const EventRegistration = sequelize.define('EventRegistration', {
     eventId: {
@@ -19,10 +19,11 @@ const EventRegistration = sequelize.define('EventRegistration', {
             key: 'id',
         },
     },
-    registeredAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-    },
+}, {
+    timestamps: true,
 });
+
+User.belongsToMany(Event, { through: EventRegistration, foreignKey: 'userId' });
+Event.belongsToMany(User, { through: EventRegistration, foreignKey: 'eventId' });
 
 module.exports = EventRegistration;
