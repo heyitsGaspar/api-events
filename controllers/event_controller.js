@@ -61,6 +61,14 @@ exports.getAllEvents = async (req, res) => {
                 attributes: ['id', 'username', 'email']
             }
         });
+        // Actualizar el estado de los eventos según la fecha
+        const today = new Date();
+        events.forEach(event => {
+            if (new Date(event.date) < today && event.status !== 'inactive') {
+                event.status = 'inactive';
+                event.save();
+            }
+        });
         res.status(200).json({ events });
     } catch (err) {
         res.status(500).json({ message: err.message });
